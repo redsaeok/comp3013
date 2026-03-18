@@ -1,3 +1,4 @@
+import Login from "#/components/Login";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/login")({
@@ -6,12 +7,6 @@ export const Route = createFileRoute("/login")({
 
 function RouteComponent() {
   return (
-    <div>
-      <form method="post">
-        <input type="text" name="email" placeholder="email" />
-        <input type="text" name="password" placeholder="password" />
-        <button>Login</button>
-      </form>
-    </div>
+    <Login />
   );
 }
