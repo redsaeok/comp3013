@@ -39,13 +39,24 @@ export default function Header() {
         </div>
 
         <div className="order-3 flex w-full flex-wrap items-center gap-x-4 gap-y-1 pb-1 text-sm font-semibold sm:order-2 sm:w-auto sm:flex-nowrap sm:pb-0">
-          <Link
-            to="/addjoke"
-            className="nav-link"
-            activeProps={{ className: "nav-link is-active" }}
-          >
-            Add Joke
-          </Link>
+
+          {!session ? (
+            <span
+              className="text-gray-400 cursor-not-allowed pointer-none pointer-events-none"
+            >
+              Add Joke
+            </span>
+          ) : (
+            <Link
+              to="/addjoke"
+              className="nav-link"
+              activeProps={{ className: "nav-link is-active" }}
+            >
+              Add Joke
+            </Link>
+          )}
+
+
 
           <Link
             to="/about"
