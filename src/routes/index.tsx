@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { db } from "#/db";
 import { joke } from "#/db/schema";
 import { createServerFn } from "@tanstack/react-start";
-import  JokeCard from "#/components/JokeCard";
+import JokeCard from "#/components/JokeCard";
 
 
 const getJokes = createServerFn( {method: "GET"}).handler(async () => {
@@ -15,15 +15,15 @@ export const Route = createFileRoute("/")({
   component: App,
   loader: async() => {
     const jokes = await getJokes();
-    return { jokes };
+    return jokes;
   }  
 });
 
 
 
 function App() {
-  const { jokes : jokeList } = Route.useLoaderData();
-  console.log(jokeList);
+  const jokes = Route.useLoaderData();
+  console.log(jokes);
 
   const { data: session } = authClient.useSession();
   if (!session) {
@@ -38,7 +38,7 @@ function App() {
     <main className="page-wrap px-4 pb-8 pt-14">
 
       {
-        jokeList.map((j) => (
+        jokes.map((j) => (
           <JokeCard key={j.id} jokeCardProp={j} />
         ))
       }

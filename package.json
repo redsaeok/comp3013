@@ -11,7 +11,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "db:push": "npx drizzle-kit push",
-    "db:studio": "npx drizzle-kit studio"
+    "db:studio": "npx drizzle-kit studio",
+    "git:push": "git push -u origin main"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2",
