@@ -1,5 +1,27 @@
 import { relations } from "drizzle-orm";
-import { pgTable, text, timestamp, boolean, index } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, integer, index } from "drizzle-orm/pg-core";
+
+export const joke = pgTable("joke", {
+  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+
+  likeCount: integer("like_count").default(0),
+
+  setup: text("setup").notNull(),
+  punchline: text("punchline").notNull(),
+
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+
+  createdAt: timestamp("created_at", { withTimezone: true })
+    .defaultNow()
+    .notNull(),
+
+  updatedAt: timestamp("updated_at", { withTimezone: true })
+    .defaultNow()
+    .$onUpdate(() => new Date())
+    .notNull(),
+});
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
