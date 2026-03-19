@@ -3,16 +3,9 @@ import { useState } from "react";
 import { db } from "#/db"
 import { joke } from "#/db/schema";
 import { authClient } from "#/lib/auth-client";
-import { useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { auth } from "#/lib/auth";
 import { getRequestHeaders } from "@tanstack/react-start/server";
-
-
-type TNewJoke = {
-    setup: string;
-    punchline: string;
-    userId: string;
-}
 
 const addJoke = createServerFn( {method: "POST"})
   .inputValidator((data) => {
@@ -76,6 +69,36 @@ export default function AddJoke() {
         alert("Joke added successfully!");
         navigate({ to: "/" });
     }
+
+
+    if (!session) {
+        return (
+            <div className="shadow-md rounded-md p-6 w-sm 2xl:w-2xl max-w-sm 2xl:max-w-2xl mx-auto mt-20">
+                <h1 className="text-2xl font-bold">Sign in to add a joke</h1>
+                <p className="mt-1">Joke submission is available to signed-in users only.</p>
+
+                <div className="flex flex-row gap-2 mt-2">
+                    <Link
+                    to="/login"
+                    className="inline-flex items-center gap-2 rounded-full border border-[var(--chip-line)] text-[var(--chip-bg)] px-3 py-1.5 text-sm bg-[var(--sea-ink)] no-underline shadow-[0_8px_24px_rgba(30,90,72,0.08)] sm:px-4 sm:py-2"
+                    activeProps={{ className: "nav-link is-active" }}
+                    >
+                    Sign In
+                    </Link>
+
+                    <Link
+                    to="/register"
+                    className="inline-flex items-center gap-2 rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1.5 text-sm text-[var(--sea-ink)] no-underline shadow-[0_8px_24px_rgba(30,90,72,0.08)] sm:px-4 sm:py-2"
+                    activeProps={{ className: "nav-link is-active" }}
+                    >
+                    Sign Up
+                    </Link>
+                </div>
+
+            </div>
+        )
+    }
+
 
     return (
         <form onSubmit={handleJoke} className="shadow-md rounded-md p-6 w-sm max-w-sm mx-auto mt-20">
