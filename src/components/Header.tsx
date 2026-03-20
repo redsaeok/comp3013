@@ -34,11 +34,9 @@ export default function Header() {
           </Link>
         </h2>
 
-        <div className="ml-auto flex items-center gap-1.5 sm:ml-0 sm:gap-2">
-          <ThemeToggle />
-        </div>
-
         <div className="order-3 flex w-full flex-wrap items-center gap-x-4 gap-y-1 pb-1 text-sm font-semibold sm:order-2 sm:w-auto sm:flex-nowrap sm:pb-0">
+
+          <ThemeToggle />
 
           {!session ? (
             <span
@@ -105,7 +103,7 @@ export default function Header() {
           ) : (
             <button 
               onClick={handleClickLogout} 
-              className="inline-flex items-center gap-2 rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1.5 text-sm text-[var(--sea-ink)] no-underline shadow-[0_8px_24px_rgba(30,90,72,0.08)] sm:px-4 sm:py-2"
+              className="inline-flex items-center gap-2 rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1.5 text-sm text-[var(--sea-ink)] dark:text-[var(--seak-ink)] no-underline shadow-[0_8px_24px_rgba(30,90,72,0.08)] sm:px-4 sm:py-2"
             >
               Sign Out
             </button>
