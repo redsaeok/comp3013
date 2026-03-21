@@ -128,13 +128,13 @@ body::after {
 
 a {
   color: var(--lagoon-deep);
-  text-decoration-color: rgba(50, 143, 151, 0.4);
+  text-decoration-color: red;
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
 }
 
 a:hover {
-  color: #246f76;
+  color: red;
 }
 
 code {
@@ -218,7 +218,7 @@ a {
   height: 2px;
   transform: scaleX(0);
   transform-origin: left;
-  background: linear-gradient(90deg, var(--lagoon), #7ed3bf);
+  background: linear-gradient(90deg, red, rgb(108, 3, 13));
   transition: transform 170ms ease;
 }
 
