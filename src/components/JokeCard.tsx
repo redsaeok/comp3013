@@ -80,7 +80,10 @@ const addLike = createServerFn( {method: "POST"} )
     try {
         await db
             .update(joke)
-            .set({ likeCount: sql`${joke.likeCount} + 1` })
+            .set({ 
+                likeCount: sql`${joke.likeCount} + 1`,
+                updatedAt: new Date(),
+            })
             .where(eq(joke.id, Number(jokeId)));
 
     } catch (error) {
@@ -118,7 +121,7 @@ const removeLike = createServerFn( {method: "POST"} )
     try {
         await db
             .update(joke)
-            .set({ likeCount: sql`${joke.likeCount} - 1` })
+            .set({ likeCount: sql`${joke.likeCount} - 1`, updatedAt: new Date() }) 
             .where(eq(joke.id, Number(jokeId)));
 
     } catch (error) {

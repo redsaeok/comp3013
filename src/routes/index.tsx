@@ -4,10 +4,11 @@ import { db } from "#/db";
 import { joke } from "#/db/schema";
 import { createServerFn } from "@tanstack/react-start";
 import JokeCard from "#/components/JokeCard";
+import { desc } from "drizzle-orm";
 
 
 const getJokes = createServerFn( {method: "GET"}).handler(async () => {
-  const jokes = await db.select().from(joke);
+  const jokes = await db.select().from(joke).orderBy(desc(joke.likeCount), desc(joke.updatedAt));
   return jokes;
 })
 
