@@ -73,25 +73,25 @@ export default function AddJoke() {
 
     if (!session) {
         return (
-            <div className="shadow-md rounded-md p-6 w-sm 2xl:w-2xl max-w-sm 2xl:max-w-2xl mx-auto mt-20">
-                <h1 className="text-2xl font-bold">Sign in to add a joke</h1>
-                <p className="mt-1">Joke submission is available to signed-in users only.</p>
+            <div className="shadow-md rounded-2xl border border-gray-200 inset-shadow-xs p-6 w-sm 2xl:w-2xl max-w-sm 2xl:max-w-2xl mx-auto mt-20">
+                <h1 className="text-3xl font-bold">Sign in to add a joke</h1>
+                <p className="my-4 text-sm">Joke submission is available to signed-in users only.</p>
 
                 <div className="flex flex-row gap-2 mt-2">
                     <Link
                     to="/login"
-                    className="inline-flex items-center gap-2 rounded-full border border-[var(--chip-line)] text-[var(--chip-bg)] px-3 py-1.5 text-sm bg-[var(--sea-ink)] no-underline shadow-[0_8px_24px_rgba(30,90,72,0.08)] sm:px-4 sm:py-2"
+                    className="inline-flex items-center gap-2 rounded-md px-3 py-1.5  bg-linear-to-b from-amber-500 to-amber-700 no-underline shadow-[0_8px_24px_rgba(30,90,72,0.08)] sm:px-4 sm:py-2 hover:from-amber-800 hover:to-amber-800"
                     activeProps={{ className: "nav-link is-active" }}
                     >
-                    Sign In
+                    <span className="text-white font-bold text-sm">Sign in</span>
                     </Link>
 
                     <Link
                     to="/register"
-                    className="inline-flex items-center gap-2 rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1.5 text-sm text-[var(--sea-ink)] no-underline shadow-[0_8px_24px_rgba(30,90,72,0.08)] sm:px-4 sm:py-2"
+                    className="inline-flex items-center gap-2 rounded-md border border-gray-300 bg-orange-50 px-3 py-1.5 no-underline shadow-[0_8px_24px_rgba(30,90,72,0.08)] sm:px-4 sm:py-2 hover:bg-orange-100"
                     activeProps={{ className: "nav-link is-active" }}
                     >
-                    Sign Up
+                    <span className="text-gray-800 font-bold text-sm">Create account</span>
                     </Link>
                 </div>
 
