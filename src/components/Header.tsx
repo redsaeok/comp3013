@@ -95,10 +95,10 @@ export default function Header() {
           {!session ? (
             <Link
               to="/register"
-              className="inline-flex items-center gap-2 rounded-full border border-[var(--chip-line)] text-[var(--chip-bg)] px-3 py-1.5 text-sm bg-[var(--sea-ink)] no-underline shadow-[0_8px_24px_rgba(30,90,72,0.08)] sm:px-4 sm:py-2"
+              className="inline-flex items-center gap-2 rounded-full text-white px-3 py-1.5 text-sm bg-linear-to-b from-amber-500 to-amber-700 no-underline shadow-[0_8px_24px_rgba(30,90,72,0.08)] shadow-xl inset-shadow-sm  sm:px-4 sm:py-2 hover:from-amber-800 hover:to-amber-800"
               activeProps={{ className: "nav-link is-active" }}
             >
-              Sign Up
+              <span className="text-white">Sign Up</span>
             </Link>
           ) : (
             <button 
