@@ -4,7 +4,7 @@ import { auth } from "#/lib/auth";
 import { authClient } from "#/lib/auth-client";
 import { createServerFn } from "@tanstack/react-start";
 import { eq, sql, type InferSelectModel } from "drizzle-orm";
-import { useNavigate } from "node_modules/@tanstack/react-router/dist/esm/useNavigate";
+import { useNavigate } from "node_modules/@tanstack/react-router";
 import { getRequestHeaders } from "node_modules/@tanstack/start-server-core/dist/esm/request-response";
 import { useState } from "react";
 
@@ -162,18 +162,16 @@ export default function JokeCard( { jokeCardProp, isTopJoke }: TJokeCardProps) {
     return (
         <form onSubmit={handleSubmit}>
             <input type="hidden" name="jokeId" value={jokeCardProp.id} />
-            <input type="hidden" name="action" value={action} />        
-            <div className="flex flex-row shadow-lg inset-shadow-sm rounded-2xl p-6  mx-auto mt-2">
-                <div className="flex flex-row rounded-sm shadow-sm">
-                    <div className="rounded-md flex flex-col justify-evenly px-1">
-                        <input onClick={() => setAction("like")} type="submit" className="text-center" value="👍" />
-                        <span className="text-center">{jokeCardProp.likeCount}</span>
-                        <input onClick={() => setAction("dislike")} type="submit" className="text-center" value="👎" />
-                    </div>
-
+            <input type="hidden" name="action" value={action} />  
+            <div className="grid gap4 grid-cols-[min-content_auto] shadow-lg inset-shadow-sm rounded-2xl p-6  mx-auto mt-2">
+                <span></span>
+                <h3 className="font-bold ml-5">{jokeCardProp.setup}</h3>
+                <div className="rounded-md flex flex-col justify-evenly px-1 border border-gray-100 inset-shadow-xs shadow-sm">
+                    <input onClick={() => setAction("like")} type="submit" className="text-center my-1" value="👍" />
+                    <span className="text-center">{jokeCardProp.likeCount}</span>
+                    <input onClick={() => setAction("dislike")} type="submit" className="text-center my-1" value="👎" />
                 </div>
-                <div className="flex flex-col gap-2 mt-2 ml-5 justify-start items-start">
-                    <h3 className="font-bold">{jokeCardProp.setup}</h3>
+                <div className="flex flex-col gap-2 mt-2 ml-5 justify-evenly items-start">                    
                     <p>{jokeCardProp.punchline}</p>
 
                     <div className="flex flex-row gap-2">
@@ -183,15 +181,15 @@ export default function JokeCard( { jokeCardProp, isTopJoke }: TJokeCardProps) {
                         )
                     }        
 
-
                     {                        
                         session?.user?.id === jokeCardProp.userId && (
                             <input onClick={() => setAction("delete")} type="submit" className="text-left shadow-sm rounded-xl text-xs p-0.5 px-2 bg-red-200" value="🗑️ Delete"/>
                         )
                     }        
                     </div>                                  
-                </div>
+                </div>                
             </div>
+
         </form>
     )
 }

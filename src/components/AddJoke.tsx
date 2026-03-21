@@ -101,7 +101,7 @@ export default function AddJoke() {
 
 
     return (
-        <main className="page-wrap px-4 pb-20 mb-20 pt-14 bg-linear-to-tr from-orange-100 from-60% to-green-100">
+        <main className="page-wrap px-4 pb-20 mb-20 pt-14">
         <section className="mb-5 border border-gray-200 shadow-xs bg-linear-to-tr from-orange-50 from-40% to-orange-100 rise-in relative overflow-hidden rounded-2xl px-6 py-10 sm:px-10 sm:py-14">
         <form onSubmit={handleJoke} className="lg:w-[55%]">
             <ul>

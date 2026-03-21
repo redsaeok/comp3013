@@ -39,7 +39,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
         <HeadContent />
       </head>
-      <body className="font-sans antialiased [overflow-wrap:anywhere] bg-orange-50">
+      <body className="font-sans antialiased [overflow-wrap:anywhere]">
         <Header />
         {children}
         <Footer />
