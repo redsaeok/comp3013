@@ -5,9 +5,10 @@ import { joke } from "#/db/schema";
 import { createServerFn } from "@tanstack/react-start";
 import JokeCard from "#/components/JokeCard";
 import { desc } from "drizzle-orm";
+import JokeBin from "#/components/JokeBin";
 
 
-const getJokes = createServerFn( {method: "GET"}).handler(async () => {
+export const getJokes = createServerFn( {method: "GET"}).handler(async () => {
   const jokes = await db.select().from(joke).orderBy(desc(joke.likeCount), desc(joke.updatedAt));
   return jokes;
 })
@@ -28,8 +29,8 @@ function App() {
   //const { data: session } = authClient.useSession();
 
   return (
-    <main className="page-wrap px-4 pb-20 mb-20 pt-14 bg-linear-to-tr from-orange-100 from-60% to-green-200">
-      <section className="border border-gray-200 shadow-xs bg-linear-to-tr from-orange-50 from-40% to-orange-200 rise-in relative overflow-hidden rounded-[2rem] px-6 py-10 sm:px-10 sm:py-14">
+    <main className="page-wrap px-4 pb-20 mb-20 pt-14 bg-linear-to-tr from-orange-100 from-60% to-green-100">
+      <section className="mb-5 border border-gray-200 shadow-xs bg-linear-to-tr from-orange-50 from-40% to-orange-100 rise-in relative overflow-hidden rounded-2xl px-6 py-10 sm:px-10 sm:py-14">
         <div className="flex flex-col">
           <h3 className="text-sm text-orange-900 font-bold pb-3">FRESHLY DEPLOYED HUMOR</h3>
           <div className="flex flex-row gap-4 mb-6">
@@ -37,8 +38,8 @@ function App() {
               <h1 className="text-4xl pb-3">Welcome to DevJokes, where commits come with chuckles.</h1>
               <p>Browse the hottest jokes, vote the funniest one to the top, and keep your debugging sessions dangerously entertaining.</p>
               <div className="flex flex-row gap-4 mt-6">
-                <span className="border rounded-xl shadow-xs border-gray-300 bg-orange-300 text-orange-900 px-5 text-sm font-bold">PUNCHLINE POWERED</span>            
-                <span className="border rounded-xl shadow-xs border-gray-300 bg-cyan-300 text-gray-600 px-5 text-sm font-bold">COMMUNITY VOTED</span>            
+                <span className="border rounded-xl shadow-xs border-gray-300 bg-orange-100 text-orange-900 px-5 text-sm font-bold">PUNCHLINE POWERED</span>            
+                <span className="border rounded-xl shadow-xs border-gray-300 bg-cyan-50 text-gray-600 px-5 text-sm font-bold">COMMUNITY VOTED</span>            
               </div>
             </div>
             <div className="flex-1 hidden lg:block">
@@ -74,7 +75,7 @@ function App() {
                   ))
                 }
               </div>
-              <div className="border rounded-lg shadow-sm border-gray-200 pl-2 bg-orange-50">
+              <div className="border rounded-4xl shadow-sm border-gray-200 pl-2 bg-orange-50">
                 <span className="text-sm">Drop a joke and join the chaos</span>
               </div>
             </div>            
@@ -85,16 +86,16 @@ function App() {
 
       {
           jokes.length === 0 && (
-            <section className="island-shell rise-in relative overflow-hidden rounded-[2rem] px-6 py-10 sm:px-10 sm:py-14">
-              No jokes yet. Be the first to add one!
+            <section className="border border-gray-200 shadow-xs bg-amber-50 rounded-2xl p-6 text-gray-400 italic">
+              No jokes found.
             </section>
           )
       }
 
-      {
-        jokes.map((j) => (
-          <JokeCard key={j.id} jokeCardProp={j} />
-        ))
+      {      
+        0 !== jokes.length && (
+          <JokeBin jokes={jokes} />
+        )
       }
 
     </main>

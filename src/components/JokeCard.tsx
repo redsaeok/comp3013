@@ -12,6 +12,7 @@ type TJoke = InferSelectModel<typeof joke>;
 
 type TJokeCardProps = {
     jokeCardProp: TJoke;
+    isTopJoke: boolean;
 }
 
 const deleteJoke = createServerFn( {method: "POST"} )
@@ -133,7 +134,7 @@ const removeLike = createServerFn( {method: "POST"} )
 
   });  
 
-export default function JokeCard( { jokeCardProp }: TJokeCardProps) {
+export default function JokeCard( { jokeCardProp, isTopJoke }: TJokeCardProps) {
     const [action, setAction] = useState("");
     const navigate = useNavigate();
     const { data: session } = authClient.useSession();
@@ -162,7 +163,7 @@ export default function JokeCard( { jokeCardProp }: TJokeCardProps) {
         <form onSubmit={handleSubmit}>
             <input type="hidden" name="jokeId" value={jokeCardProp.id} />
             <input type="hidden" name="action" value={action} />        
-            <div className="flex flex-row shadow-md rounded-md p-6 w-sm max-w-sm xl:w-xl xl:max-w-xl mx-auto mt-5">
+            <div className="flex flex-row shadow-lg inset-shadow-sm rounded-2xl p-6  mx-auto mt-2">
                 <div className="flex flex-row rounded-sm shadow-sm">
                     <div className="rounded-md flex flex-col justify-evenly px-1">
                         <input onClick={() => setAction("like")} type="submit" className="text-center" value="👍" />
@@ -174,12 +175,21 @@ export default function JokeCard( { jokeCardProp }: TJokeCardProps) {
                 <div className="flex flex-col gap-2 mt-2 ml-5 justify-start items-start">
                     <h3 className="font-bold">{jokeCardProp.setup}</h3>
                     <p>{jokeCardProp.punchline}</p>
-                    {
+
+                    <div className="flex flex-row gap-2">
+                    {                        
+                        isTopJoke && (
+                            <span className="text-left shadow-sm rounded-xl text-xs p-0.5 px-2 bg-orange-100">★ TOP JOKE</span>
+                        )
+                    }        
+
+
+                    {                        
                         session?.user?.id === jokeCardProp.userId && (
                             <input onClick={() => setAction("delete")} type="submit" className="text-left shadow-sm rounded-xl text-xs p-0.5 px-2 bg-red-200" value="🗑️ Delete"/>
                         )
                     }        
-                                  
+                    </div>                                  
                 </div>
             </div>
         </form>
