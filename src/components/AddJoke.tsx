@@ -101,14 +101,16 @@ export default function AddJoke() {
 
 
     return (
-        <form onSubmit={handleJoke} className="shadow-md rounded-md p-6 w-sm max-w-sm mx-auto mt-20">
+        <main className="page-wrap px-4 pb-20 mb-20 pt-14 bg-linear-to-tr from-orange-100 from-60% to-green-100">
+        <section className="mb-5 border border-gray-200 shadow-xs bg-linear-to-tr from-orange-50 from-40% to-orange-100 rise-in relative overflow-hidden rounded-2xl px-6 py-10 sm:px-10 sm:py-14">
+        <form onSubmit={handleJoke} className="lg:w-[55%]">
             <ul>
-            <li><h3>SHIP A PUNCHLINE</h3>
-            <h1>Add a New Joke</h1>
-            <p>Drop in a setup and punchline.  Once it saves, you will be redirected back to the collection.</p>
+            <li><h3 className="text-sm text-orange-900 font-bold pb-3">FRESHLY DEPLOYED HUMOR</h3>
+            <h1 className="text-4xl font-bold">Add a New Joke</h1>
+            <p className="mt-1 mb-3">Drop in a setup and punchline.  Once it saves, you will be redirected back to the collection.</p>
             </li>
             <li>
-                <label htmlFor="setup">
+                <label className="font-bold" htmlFor="setup">
                     Setup
                     <input
                         onChange={(e) => setSetup(e.target.value)}
@@ -121,11 +123,11 @@ export default function AddJoke() {
                 </label>
             </li>
             <li>
-                <label htmlFor="punchline">
+                <label className="font-bold" htmlFor="punchline">
                     Punchline
-                    <input
+                    <textarea
                         onChange={(e) => setPunchline(e.target.value)}
-                        type="text"
+                        rows={4}
                         id="punchline"
                         name="punchline"
                         className="w-full border border-gray-300 rounded-md p-2 mt-1 mb-4"
@@ -134,11 +136,13 @@ export default function AddJoke() {
                 </label>
             </li>
             <li>
-                <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                <button type="submit" className="bg-linear-to-b from-amber-700 to-amber-800 text-white font-bold px-4 py-2 rounded-md hover:from-amber-800 hover:to-amber-800 cursor-pointer">
                     Save Joke
                 </button>
             </li>
             </ul>
         </form>
+        </section>
+        </main>
     )
 }
