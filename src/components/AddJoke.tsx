@@ -3,9 +3,6 @@ import { authClient } from "#/lib/auth-client";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { addJoke } from "#/services/jokes";
 
-
-
-
 export default function AddJoke() {
     const [setup, setSetup] = useState("");
     const [punchline, setPunchline] = useState("");
@@ -81,6 +78,9 @@ export default function AddJoke() {
                         name="setup"
                         className="w-full border border-gray-300 rounded-md p-2 mt-1 mb-4"
                         required
+                        minLength={3}
+                        maxLength={500}
+                        pattern=".*\S.*"
                     />
                 </label>
             </li>
@@ -94,6 +94,8 @@ export default function AddJoke() {
                         name="punchline"
                         className="w-full border border-gray-300 rounded-md p-2 mt-1 mb-4"
                         required
+                        minLength={3}
+                        maxLength={500}
                     />
                 </label>
             </li>
