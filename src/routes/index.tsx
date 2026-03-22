@@ -1,16 +1,9 @@
 //import { authClient } from "#/lib/auth-client";
 import { createFileRoute } from "@tanstack/react-router";
-import { db } from "#/db";
-import { joke } from "#/db/schema";
-import { createServerFn } from "@tanstack/react-start";
-import { desc } from "drizzle-orm";
 import JokeBin from "#/components/JokeBin";
+import { getJokes } from "#/services/jokes/getJokes";
 
 
-export const getJokes = createServerFn( {method: "GET"}).handler(async () => {
-  const jokes = await db.select().from(joke).orderBy(desc(joke.likeCount), desc(joke.updatedAt));
-  return jokes;
-})
 
 export const Route = createFileRoute("/")({ 
   component: App,
