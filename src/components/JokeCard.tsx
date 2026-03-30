@@ -4,6 +4,8 @@ import { type InferSelectModel } from "drizzle-orm";
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { deleteJoke, likeJoke, dislikeJoke } from "#/services/jokes";
+import { useMutation } from "@tanstack/react-query";
+import { queryClient } from "#/lib/query-client";
 
 type TJoke = InferSelectModel<typeof joke>;
 
@@ -16,6 +18,19 @@ export default function JokeCard( { jokeCardProp, isTopJoke }: TJokeCardProps) {
     const [action, setAction] = useState("");
     const navigate = useNavigate();
     const { data: session } = authClient.useSession();
+
+    const likeMutation = useMutation({
+        mutationFn: likeJoke,
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["jokes"] })});
+
+    const dislikeMutation = useMutation({
+        mutationFn: dislikeJoke,
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["jokes"] })});
+
+    const deleteMutation = useMutation({
+        mutationFn: deleteJoke,
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["jokes"] })});
+        
     
     async function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
         event.preventDefault();        
@@ -23,13 +38,13 @@ export default function JokeCard( { jokeCardProp, isTopJoke }: TJokeCardProps) {
         const formData = new FormData(event.currentTarget);
 
         if (formData.get("action") === "like") {
-            const val = await likeJoke({data: formData});
+            const val = likeMutation.mutate({data: formData});
             console.log(val);
         } else if (formData.get("action") === "dislike") {
-            const val = await dislikeJoke({data: formData});
+            const val = dislikeMutation.mutate({data: formData});
             console.log(val);
         } else if (formData.get("action") === "delete") {
-            const val = await deleteJoke({data: formData});
+            const val = deleteMutation.mutate({data: formData});
             console.log(val);
         }
         

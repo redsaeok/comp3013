@@ -2,6 +2,8 @@ import { useState } from "react";
 import { authClient } from "#/lib/auth-client";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { addJoke } from "#/services/jokes";
+import { useMutation } from "@tanstack/react-query";
+import { queryClient } from "#/lib/query-client";
 
 export default function AddJoke() {
     const [setup, setSetup] = useState("");
@@ -9,9 +11,15 @@ export default function AddJoke() {
     const navigate = useNavigate();
     const { data: session } = authClient.useSession();
 
+    const createMutation = useMutation({
+        mutationFn: addJoke,
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["jokes"] })});
+
+
     async function handleJoke(e: React.SubmitEvent<HTMLFormElement>) {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
+
 
         if (!setup || !punchline) {
             alert("Please fill in both the setup and punchline.");
@@ -23,7 +31,7 @@ export default function AddJoke() {
             return;
         }
 
-        await addJoke({data: formData});
+        createMutation.mutate({data: formData});
 
         alert("Joke added successfully!");
         navigate({ to: "/" });

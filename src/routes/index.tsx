@@ -2,21 +2,31 @@
 import { createFileRoute } from "@tanstack/react-router";
 import JokeBin from "#/components/JokeBin";
 import { getJokes } from "#/services/jokes/getJokes";
+import { useQuery } from "@tanstack/react-query";
+
+
 
 
 
 export const Route = createFileRoute("/")({ 
   component: App,
   loader: async() => {
-    const jokes = await getJokes();
-    return jokes;
+    return await getJokes();
   }  
 });
 
 
 
 function App() {
-  const jokes = Route.useLoaderData();
+
+  const initialJokes = Route.useLoaderData();
+
+  const { data: jokes = [], isLoading, isError } = useQuery({
+    queryKey: ["jokes"],
+    queryFn: () => getJokes(),
+    initialData: initialJokes,
+  });
+
   //console.log(jokes);
   //const { data: session } = authClient.useSession();
 
